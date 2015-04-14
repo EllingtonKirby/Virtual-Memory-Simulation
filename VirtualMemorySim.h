@@ -5,9 +5,13 @@
 
 class VirtualMemorySimulator{
 	private:
-		vector< pair<int, int>> physical_memory;
-		vector<int[]> virtual_memory;
-
+		struct process{
+			int pid;
+			int num_pages;
+			std::vector<int> pages;
+		};
+		std::vector< std::pair<int, int>> physical_memory;
+		std::map<int,struct process> virtual_memory;
 	public:
 		VirtualMemorySimulator(int num_frames);
 		void start(int pid, int size);
