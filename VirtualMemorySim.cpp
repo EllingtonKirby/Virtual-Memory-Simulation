@@ -61,7 +61,7 @@ int VirtualMemorySimulator::reference(int pid, int page_number){
 void VirtualMemorySimulator::terminate(int process_id){
 	// Free all frames the process references
 	for(auto f : physical_memory){
-		if(f.pid == process_id){}
+		if(f.pid == process_id){
 			// Deallocate the frame
 			f.pid = FREE_FRAME;
 		}
