@@ -4,6 +4,10 @@
 #include <string>
 #include "VirtualMemorySim.h"
 
+#define PAGE_FAULT = 0;
+#define SUCCESS = 1;
+#define PAGE_RESIDENT = 2;
+
 using namespace std;
 
 int main(int argc, char* argv[]){
@@ -44,7 +48,19 @@ int main(int argc, char* argv[]){
 					ss >> process_number;
 					ss >> page_number;
 					//call reference function
-					VMS.reference(process_number, page_number);
+					int result = VMS.reference(process_number, page_number);
+					if(result == PAGE_FAULT){
+						cout << "Encountered a page fault when attempting to add a reference
+								from process id " << process_number << " to page number " << 
+								page_number << endl;
+					}
+					else if(result == SUCCESS){
+						// Reference addition successful
+					}
+					else if(result == PAGE_RESIDENT){
+						cout << "Page number " << page_number << " is already resident to
+								process id " << process_number << endl;
+					}
 				}	
 			}
 		}

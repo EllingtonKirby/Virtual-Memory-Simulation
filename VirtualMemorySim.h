@@ -2,7 +2,7 @@
 #include <vector>
 #include <utility>
 #include <math.h>
-#define NULL_FRAME -1
+
 
 class VirtualMemorySimulator{
 	private:
@@ -34,5 +34,5 @@ class VirtualMemorySimulator{
 		VirtualMemorySimulator(int num_frames);
 		void start(int pid, int size);
 		void terminate(int pid);
-		void reference(int pid, int page_number);
+		int reference(int pid, int page_number);
 };

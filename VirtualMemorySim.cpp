@@ -26,7 +26,11 @@ void VirtualMemorySimulator::start(int process_id, int size){
 	virtual_memory.push_back(pair<process_id, p1>);
 }
 
-void VirtualMemorySimulator::reference(int pid, int page_number){
+// Return Values:
+// 0 - Page fault
+// 1 - Success
+// 2 - Page already resident to process
+int VirtualMemorySimulator::reference(int pid, int page_number){
 	// Check if the page is not resident
 	bool resident = false;
 	struct process p = virtual_memory[pid];
@@ -41,13 +45,16 @@ void VirtualMemorySimulator::reference(int pid, int page_number){
 			if(physical_memory[i].pid == FREE_FRAME){
 				p.pages.push_back(i);
 				physical_memory[i].pid = pid;
-				break;
+				return 1;
 			}
 		}
+
+		// If we get to this point, there is a page fault (no frames available)
+		return 0;
 	}
 	else{
-		// Do nothing (for now)
-
+		// Page is already resident to pcoess
+		return 2;
 	}
 }
 
