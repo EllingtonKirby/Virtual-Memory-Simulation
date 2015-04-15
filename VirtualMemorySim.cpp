@@ -33,7 +33,7 @@ void VirtualMemorySimulator::start(int process_id, int size){
 int VirtualMemorySimulator::reference(int pid, int page_number){
 	// Check if the page is not resident
 	bool resident = false;
-	struct process p = virtual_memory[pid];
+	struct process *p = &virtual_memory[pid];
 	for(auto it : p.pages){
 		if(it == page_number)
 			resident = true;
@@ -43,7 +43,7 @@ int VirtualMemorySimulator::reference(int pid, int page_number){
 	if(!resident){
 		for(int i = 0; i < physical_memory.size(); i++){
 			if(physical_memory[i].pid == FREE_FRAME){
-				p.pages.push_back(i);
+				p->pages.push_back(i);
 				physical_memory[i].pid = pid;
 				return 1;
 			}
