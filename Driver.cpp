@@ -2,6 +2,7 @@
 #include <stringstream>
 #include <iostream>
 #include <string>
+#include "VirtualMemorySim.h"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ int main(int argc, char* argv[]){
 		//do so using a class, which contains parameters representing frame size
 		//as well as a data structure to store processes
 		//processes should be indexed by process number
+		VirtualMemorySim VMS(num_frames);
 		ifstream infile(filename);
 		if(infile.is_open()){
 			string line, word;
@@ -28,11 +30,13 @@ int main(int argc, char* argv[]){
 					ss >> process_number;
 					ss >> address_space_size;
 					//call start proccess function
+					VMS.start(process_number, address_space_size);
 				}
 				else if(word == "TERMINATE"){
 					int process_number = 0;
 					ss >> process_number;
 					//call terminate process function
+					VMS.terminate(process_number);
 				}
 				else{//REFERENCE
 					int process_number = 0;
@@ -40,6 +44,7 @@ int main(int argc, char* argv[]){
 					ss >> process_number;
 					ss >> page_number;
 					//call reference function
+					VMS.reference(process_number, page_number);
 				}	
 			}
 		}
