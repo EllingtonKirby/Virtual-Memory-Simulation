@@ -2,7 +2,7 @@
 #include <vector>
 #include <utility>
 #include <math.h>
-
+#include <map>
 
 class VirtualMemorySimulator{
 	private:
